@@ -16,22 +16,36 @@
 		data() {
 			return {
 				fireworkArr: [],
-				sparkArr: []
+				sparkArr: [],
+        next: ''
 			}
 		},
 
 		methods: {
-			beforeRender() {
+      fetchData() {
+        setInterval(() => {
+          fetch(`https://graph.facebook.com/v3.2/${postId}/comments?access_token=${token}&pretty=0&fields=id&limit=20&after=${this.next}`)
+            .then(response => response.json())
+            .then(data => {
+              if(data.data.length > 0) {
+                this.next = data.paging.cursors.after
+                this.addFirework(data.data.length)
+              }
+            })
+        }, 2000)
+
+      },
+
+			setDimension() {
 				const canvas = this.$refs.canvas
 				canvas.width = window.innerWidth
   			canvas.height = window.innerHeight
 			},
 
-			init() {
-				// for(let i = 0; i <= 10; i++) {
-					if(this.fireworkArr.length < 20)
+			addFirework(length) {
+				 for(let i = 1; i <= length; i++) {
 						this.fireworkArr.push(new Fireworks(this.$refs.canvas))
-				// }
+				 }
 			},
 
 			render() {
@@ -44,7 +58,7 @@
 
 					ctx.fillStyle = 'rgba(0,0,0, .1)'
     			ctx.fillRect(0, 0, width, height)
-    			
+
     			this.fireworkArr.forEach((fw, index) => {
 			      fw.update(ctx, this.sparkArr)
 			      if(fw.life) {
@@ -58,7 +72,6 @@
 			      }
 			      s.update(ctx)
 			    })
-			    this.init()
 				}
 
 				animate()
@@ -69,8 +82,12 @@
 			Countdown
 		},
 
+    created() {
+      this.fetchData()
+    },
+
 		mounted() {
-			this.beforeRender()
+			this.setDimension()
 			this.render()
 		},
 	}

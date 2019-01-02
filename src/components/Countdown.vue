@@ -31,12 +31,16 @@
 				const interval = setInterval(() => {
 					const targetDate  = new Date(this.deadline).getTime()
 					const currentDate = new Date().getTime()
-					const diff   = targetDate - currentDate
+					const diff = targetDate - currentDate
 
 					this.timer.days  = this.zeroLead(Math.floor(diff / (1000 * 60 * 60 * 24)))
 					this.timer.hours = this.zeroLead(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)))
 					this.timer.mins  = this.zeroLead(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)))
 					this.timer.secs  = this.zeroLead(Math.floor((diff % (1000 * 60)) / 1000))
+
+          if(diff < 0) {
+            clearInterval(interval)
+          }
 
 				}, 1000)
 			},
