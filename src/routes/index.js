@@ -9,7 +9,11 @@ const routes = [
 	{
 		path: '/gopro',
 		component: Gopro
-	}
+	},
+  {
+    path: '*',
+    redirect: '/'
+  }
 ]
 
 export default routes
