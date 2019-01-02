@@ -3,6 +3,7 @@
     <p
       v-for="(value, key) in timer"
       :key="key"
+      style="min-width: 90px;"
       class="mx-5 flex flex-col p-4 border rounded-full"
     >
       <span class="pb-1">{{ value }}</span>
@@ -32,15 +33,15 @@
 					const currentDate = new Date().getTime()
 					const diff   = targetDate - currentDate
 
-					this.timer.days  = this.lead0(Math.floor(diff / (1000 * 60 * 60 * 24)))
-					this.timer.hours = this.lead0(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)))
-					this.timer.mins  = this.lead0(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)))
-					this.timer.secs  = this.lead0(Math.floor((diff % (1000 * 60)) / 1000))
+					this.timer.days  = this.zeroLead(Math.floor(diff / (1000 * 60 * 60 * 24)))
+					this.timer.hours = this.zeroLead(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)))
+					this.timer.mins  = this.zeroLead(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)))
+					this.timer.secs  = this.zeroLead(Math.floor((diff % (1000 * 60)) / 1000))
 
 				}, 1000)
 			},
 
-			lead0(num) {
+			zeroLead(num) {
 				return num < 10 ? '0' + num : num
 			}
 		},
@@ -50,9 +51,3 @@
 		}
 	}
 </script>
-
-<style scoped>
-	p {
-		min-width: 90px;
-	}
-</style>
