@@ -1,21 +1,13 @@
 <template>
 	<div class="flex text-2xl">
-		<p class="mx-5 flex flex-col p-4 border rounded-full">
-			<span class="pb-1">{{ days }}</span>
-			<span>Days</span>
-		</p>
-		<p class="mx-5 flex flex-col p-4 border rounded-full">
-			<span class="pb-1">{{ hours }}</span>
-			<span>Hours</span>
-		</p>
-		<p class="mx-5 flex flex-col p-4 border rounded-full">
-			<span class="pb-1">{{ minutes }}</span>
-			<span>Mins</span>
-		</p>
-		<p class="mx-5 flex flex-col p-4 border rounded-full">
-			<span class="pb-1">{{ seconds }}</span>
-			<span>Secs</span>
-		</p>
+    <p
+      v-for="(value, key) in timer"
+      :key="key"
+      class="mx-5 flex flex-col p-4 border rounded-full"
+    >
+      <span class="pb-1">{{ value }}</span>
+      <span class="capitalize">{{ key }}</span>
+    </p>
 	</div>
 </template>
 
@@ -24,10 +16,12 @@
 		data() {
 			return {
 				deadline: 'February 5, 2019 00:00:00',
-				days: '',
-				hours: '',
-				minutes: '',
-				seconds: ''
+				timer: {
+          days: '',
+          hours: '',
+          mins: '',
+          secs: ''
+        }
 			}
 		},
 
@@ -37,13 +31,12 @@
 					const targetDate  = new Date(this.deadline).getTime()
 					const currentDate = new Date().getTime()
 					const diff   = targetDate - currentDate
-					
-					this.days    = this.lead0(Math.floor(diff / (1000 * 60 * 60 * 24)))
-					this.hours   = this.lead0(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)))
-					this.minutes = this.lead0(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)))
-					this.seconds = this.lead0(Math.floor((diff % (1000 * 60)) / 1000))
-				  
-				  console.log(this.days, this.hours, this.minutes, this.seconds)
+
+					this.timer.days  = this.lead0(Math.floor(diff / (1000 * 60 * 60 * 24)))
+					this.timer.hours = this.lead0(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)))
+					this.timer.mins  = this.lead0(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)))
+					this.timer.secs  = this.lead0(Math.floor((diff % (1000 * 60)) / 1000))
+
 				}, 1000)
 			},
 
@@ -52,7 +45,7 @@
 			}
 		},
 
-		mounted() {
+		created() {
 			this.countdown()
 		}
 	}

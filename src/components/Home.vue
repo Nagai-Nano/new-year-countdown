@@ -3,3 +3,14 @@
 		Home
 	</div>
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+        postId: '',
+        token: ''
+      }
+    }
+  }
+</script>
