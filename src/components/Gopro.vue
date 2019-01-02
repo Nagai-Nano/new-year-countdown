@@ -23,6 +23,12 @@
 
 		methods: {
       fetchData() {
+        const postId = localStorage.getItem('postId')
+        const token = localStorage.getItem('token')
+
+        if(!postId || !token)
+          return
+
         setInterval(() => {
           fetch(`https://graph.facebook.com/v3.2/${postId}/comments?access_token=${token}&pretty=0&fields=id&limit=20&after=${this.next}`)
             .then(response => response.json())
@@ -33,7 +39,6 @@
               }
             })
         }, 2000)
-
       },
 
 			setDimension() {
@@ -89,6 +94,6 @@
 		mounted() {
 			this.setDimension()
 			this.render()
-		},
+		}
 	}
 </script>
