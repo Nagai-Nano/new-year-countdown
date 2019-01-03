@@ -8,8 +8,7 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-  base: '/new-year-countdown',
-	mode: 'history',
+	mode: 'hash',
 	routes
 })
 
