@@ -60,19 +60,21 @@
       return {
         postId: '',
         token: '',
-        interval: '1000',
+        interval: '2000',
         limit: '15'
       }
     },
 
     methods: {
       onSubmit() {
-        if(!this.postId || !this.token || !this.interval || !this.limit || parseInt(this.interval) < 1000 || parseInt(this.limit) < 1)
+        if(!this.postId || !this.token || !this.interval || !this.limit || parseInt(this.interval) < 100 || parseInt(this.limit) < 1)
           return
 
         localStorage.setItem('postId', this.postId)
         localStorage.setItem('token', this.token)
-        this.$router.push('/countdown')
+        localStorage.setItem('interval', this.interval)
+        localStorage.setItem('limit', this.limit)
+        this.$router.push('/gopro')
       }
     }
   }
