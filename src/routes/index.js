@@ -1,5 +1,5 @@
 import Home from '@/components/Home'
-import Gopro from '@/components/Gopro'
+import Success from '@/components/Success'
 
 const routes = [
 	{
@@ -7,8 +7,8 @@ const routes = [
 		component: Home
 	},
 	{
-		path: '/gopro',
-		component: Gopro
+		path: '/success',
+		component: Success
 	},
   {
     path: '*',

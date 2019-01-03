@@ -74,7 +74,7 @@
         localStorage.setItem('token', this.token)
         localStorage.setItem('interval', this.interval)
         localStorage.setItem('limit', this.limit)
-        this.$router.push('/gopro')
+        this.$router.push('/success')
       }
     }
   }
