@@ -38,8 +38,9 @@
 					this.timer.mins  = this.zeroLead(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)))
 					this.timer.secs  = this.zeroLead(Math.floor((diff % (1000 * 60)) / 1000))
 
-          if(diff < 0) {
+          if(diff < 1000) {
             clearInterval(interval)
+            this.$emit('happyNewYear')
           }
 
 				}, 1000)

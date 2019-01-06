@@ -38,19 +38,19 @@
         const animate = () => {
           requestAnimationFrame(animate)
 
-          ctx.fillStyle = 'rgba(0,0,0, .1)'
+          ctx.fillStyle = 'rgba(0, 0, 0, .1)'
           ctx.fillRect(0, 0, width, height)
 
           this.fireworkArr.forEach((fw, index) => {
             fw.update(ctx, this.sparkArr)
             if(fw.life) {
-              this.fireworkArr.splice(index,1)
+              this.fireworkArr.splice(index, 1)
             }
           })
 
           this.sparkArr.forEach((s, index) => {
             if(s.life <= 0) {
-              this.sparkArr.splice(index,1)
+              this.sparkArr.splice(index, 1)
             }
             s.update(ctx)
           })

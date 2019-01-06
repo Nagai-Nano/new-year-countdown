@@ -2,7 +2,7 @@
 	<div class="w-full h-full">
 		<div class="absolute w-full h-full text-center text-white flex flex-col items-center justify-center">
       <h1 style="opacity: .9; font-size: 4rem;" class="tracking-wide capitalize mb-3">chúc mừng năm hợi</h1>
-			<Countdown />
+			<Countdown @happyNewYear="happyNewYear" />
 		</div>
 		<canvas ref="canvas"></canvas>
 	</div>
@@ -17,7 +17,8 @@
 			return {
 				fireworkArr: [],
 				sparkArr: [],
-        next: ''
+        next: '',
+        interval: 0
 			}
 		},
 
@@ -29,7 +30,7 @@
         if(!postId || !token)
           return
 
-        setInterval(() => {
+        this.interval = setInterval(() => {
           fetch(`https://graph.facebook.com/v3.2/${postId}/comments?access_token=${token}&pretty=0&fields=id&limit=15&after=${this.next}`)
             .then(response => response.json())
             .then(data => {
@@ -59,7 +60,7 @@
 				const animate = () => {
 					requestAnimationFrame(animate)
 
-					ctx.fillStyle = 'rgba(0,0,0, .1)'
+					ctx.fillStyle = 'rgba(0, 0, 0, .1)'
     			ctx.fillRect(0, 0, width, height)
 
           if(this.fireworkArr.length < 0) return
@@ -67,20 +68,31 @@
     			this.fireworkArr.forEach((fw, index) => {
 			      fw.update(ctx, this.sparkArr)
 			      if(fw.life) {
-			        this.fireworkArr.splice(index,1)
+			        this.fireworkArr.splice(index, 1)
 			      }
 			    })
 
 			    this.sparkArr.forEach((s, index) => {
 			      if(s.life <= 0) {
-			        this.sparkArr.splice(index,1)
+			        this.sparkArr.splice(index, 1)
 			      }
 			      s.update(ctx)
 			    })
 				}
 
 				animate()
-			}
+			},
+
+      happyNewYear() {
+        clearInterval(this.interval)
+        this.addFirework(20)
+
+        setInterval(() => {
+          if(this.fireworkArr.length < 20)
+            this.fireworkArr.push(new Fireworks(this.$refs.canvas))
+        }, 100)
+
+      }
 		},
 
 		components: {
