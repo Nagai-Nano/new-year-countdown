@@ -43,12 +43,6 @@
         }, interval)
       },
 
-			setDimension() {
-				const canvas = this.$refs.canvas
-				canvas.width = window.innerWidth
-  			canvas.height = window.innerHeight
-			},
-
 			addFirework(length) {
 				 for(let i = 1; i <= length; i++) {
 						this.fireworkArr.push(new Fireworks(this.$refs.canvas))
@@ -57,6 +51,9 @@
 
 			render() {
 				const canvas = this.$refs.canvas
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+
 				const { width, height } = canvas
 				const ctx = canvas.getContext('2d')
 
@@ -65,6 +62,8 @@
 
 					ctx.fillStyle = 'rgba(0,0,0, .1)'
     			ctx.fillRect(0, 0, width, height)
+
+          if(this.fireworkArr.length < 0) return
 
     			this.fireworkArr.forEach((fw, index) => {
 			      fw.update(ctx, this.sparkArr)
@@ -89,12 +88,8 @@
 			Countdown
 		},
 
-    created() {
-      this.fetchData()
-    },
-
 		mounted() {
-			this.setDimension()
+      this.fetchData()
 			this.render()
 		}
 	}

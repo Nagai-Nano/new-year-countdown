@@ -21,12 +21,6 @@
     },
 
     methods: {
-      setDimension() {
-        const canvas = this.$refs.canvas
-        canvas.width = window.innerWidth
-        canvas.height = window.innerHeight
-      },
-
       addFirework() {
          if(this.fireworkArr.length < 20) {
             this.fireworkArr.push(new Fireworks(this.$refs.canvas))
@@ -35,6 +29,9 @@
 
       render() {
         const canvas = this.$refs.canvas
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+
         const { width, height } = canvas
         const ctx = canvas.getContext('2d')
 
@@ -66,7 +63,6 @@
     },
 
     mounted() {
-      this.setDimension()
       this.render()
     },
 
