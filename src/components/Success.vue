@@ -1,7 +1,7 @@
 <template>
 	<div class="w-full h-full">
 		<div class="absolute w-full h-full text-center text-white flex flex-col items-center justify-center">
-			<h1 style="opacity: .9" class="text-5xl tracking-wide capitalize mb-4">chúc mừng năm hợi</h1>
+      <h1 style="opacity: .9; font-size: 4rem;" class="tracking-wide capitalize mb-3">chúc mừng năm hợi</h1>
 			<Countdown />
 		</div>
 		<canvas ref="canvas"></canvas>
@@ -33,9 +33,10 @@
           fetch(`https://graph.facebook.com/v3.2/${postId}/comments?access_token=${token}&pretty=0&fields=id&limit=15&after=${this.next}`)
             .then(response => response.json())
             .then(data => {
-              if(data.data.length > 0) {
+              const length = data.data.length
+              if(length > 0) {
                 this.next = data.paging.cursors.after
-                this.addFirework(data.data.length)
+                this.addFirework(length)
               }
             })
         }, 2000)

@@ -3,7 +3,7 @@
     <p
       v-for="(value, key) in timer"
       :key="key"
-      style="min-width: 90px;"
+      style="width: 95px;"
       class="mx-5 flex flex-col p-4 border rounded-full"
     >
       <span class="pb-1">{{ value }}</span>

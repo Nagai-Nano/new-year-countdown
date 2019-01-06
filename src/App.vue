@@ -10,7 +10,7 @@
 
 <style>
   #app {
-    font-family: 'Charm', cursive;
+    font-family: 'Dancing Script', cursive;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
