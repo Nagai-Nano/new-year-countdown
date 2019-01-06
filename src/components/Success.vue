@@ -23,16 +23,14 @@
 
 		methods: {
       fetchData() {
-        const postId   = localStorage.getItem('postId')
-        const token    = localStorage.getItem('token')
-        const interval = parseInt(localStorage.getItem('interval'))
-        const limit    = localStorage.getItem('limit')
+        const postId = localStorage.getItem('postId')
+        const token  = localStorage.getItem('token')
 
         if(!postId || !token)
           return
 
         setInterval(() => {
-          fetch(`https://graph.facebook.com/v3.2/${postId}/comments?access_token=${token}&pretty=0&fields=id&limit=${limit}&after=${this.next}`)
+          fetch(`https://graph.facebook.com/v3.2/${postId}/comments?access_token=${token}&pretty=0&fields=id&limit=15&after=${this.next}`)
             .then(response => response.json())
             .then(data => {
               if(data.data.length > 0) {
@@ -40,7 +38,7 @@
                 this.addFirework(data.data.length)
               }
             })
-        }, interval)
+        }, 2000)
       },
 
 			addFirework(length) {
